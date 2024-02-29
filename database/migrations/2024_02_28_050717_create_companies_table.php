@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) 
-            { $table->increments('id');
+        Schema::create('companies', function (Blueprint $table) { 
+            $table->unsignedBigInteger('id');
             $table->string('fantasy',100)-> unique() -> nullable();
             $table->string('social',100)-> unique() -> nullable();
             $table->string('cnpj',14)-> unique() -> nullable();
