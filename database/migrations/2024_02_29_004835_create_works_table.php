@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')-> unique() -> nullable();
-            $table->string('description',2000);
-            $table->string('hierarchy')-> unique() -> nullable();
-        
+            $table->string('title',255);
+            $table->string('description',2056);
+
             $table->timestamps();
-        /*------------FOREIN KEYS-------------------- */ 
+
+            /*------------FOREIN KEYS-------------------- */
 
         });
-
     }
 
     /**
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('works');
     }
 };
