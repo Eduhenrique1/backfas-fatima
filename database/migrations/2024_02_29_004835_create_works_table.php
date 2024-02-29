@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',255);
-            $table->string('description',2056);
+            $table->string('description_work',2056);
 
             $table->timestamps();
 
