@@ -14,7 +14,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-       return Company::all();
+        // Obtém todas as empresas
+        $companies = Company::all();
+
+        // Retorna os dados das empresas como uma resposta JSON
+        return response()->json($companies);
     }
 
     /**
@@ -53,7 +57,7 @@ class CompanyController extends Controller
         'address' => 'Company address',
         'phone'=> 'Company phone',
         'website' =>  'Company website',
-    ]);
+    ]);  
               
     // Verifique se a requisição HTTP foi bem-sucedida
     if ($response->successful()) {
@@ -65,22 +69,66 @@ class CompanyController extends Controller
      * Display the specified resource.
      */
     }
-  public function show(string $id)
-    {
-        return Company::findOrFail($id);
-    }
+  public function  show($search)
+  {
+      // Encontre a empresa pelo fantasy, social, CNPJ ou ID
+      $company = Company::where('fantasy', $search)
+                         ->orWhere('social', $search)
+                         ->orWhere('cnpj', $search)
+                         ->orWhere('id', $search)
+                         ->first();
+  
+      // Verifique se a empresa foi encontrada
+      if (!$company) {
+          return response()->json(['message' => 'Empresa não encontrada'], 404);
+      }
+  
+      // Retorna os dados da empresa como uma resposta JSON
+      return response()->json($company);
+  }
 
    
-    public function update(Request $request, string $id)
-    {
-        $company = Company::findOrFail($id);
-        $company->update($request->all());
-    }
+  public function update(Request $request, string $fantasy)
+  {
+      $validatedData = $request->validate([
+          'fantasy' => 'required|string',
+          'social' => 'required|string',
+          'cnpj' => 'required|string',
+          'type' => 'required|string',
+          'responsible' => 'required|string',
+          'opening' => 'required|date',
+          'nationality' => 'required|string',
+          'description' => 'required|string',
+          'address' => 'required|string',
+          'phone' => 'required|int',
+          'website' => 'required|string',
+      ]);
+  
+      // Encontre a empresa que deseja atualizar pelo campo "fantasy"
+      $company = Company::where('fantasy', $fantasy)->firstOrFail();
+  
+      // Atualize os dados da empresa
+      $company->update($validatedData);
+  
+      // Retorne uma resposta de sucesso
+      return response()->json(['message' => 'Empresa atualizada com sucesso']);
+  }
+  
 
-   
     public function destroy(string $id)
     {
+        try{
+        // Busca a empresa pelo ID
         $company = Company::findOrFail($id);
+
+        // Exclui a empresa
         $company->delete();
+
+        // Retorna uma resposta de sucesso
+        return response()->json(['message' => 'Empresa excluída com sucesso'], 200);
+    } catch (\Exception $e) {
+        // Retorna uma resposta de erro se algo der errado
+        return response()->json(['message' => 'Erro ao excluir empresa: ' . $e->getMessage()], 500);
+    }
     }
 }
