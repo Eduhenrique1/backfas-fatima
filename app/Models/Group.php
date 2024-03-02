@@ -14,18 +14,5 @@ class Group extends Model
         'status',
         'hierarchy'
     ];
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
-    public function companies()
-    {
-        return $this->belongsToMany(Company::class);
-    }
-   
-    public function works()
-    {
-        return $this->belongsToMany(Work::class);
-    }
-
+  
 }

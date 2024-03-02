@@ -54,18 +54,5 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function companies()
-    {
-        return $this->belongsToMany(Company::class);
-    }
-    public function groups()
-    {
-        return $this->belongsToMany(Group::class);
-    }
-
-    public function works()
-    {
-        return $this->belongsToMany(Work::class);
-    }   
 
 }

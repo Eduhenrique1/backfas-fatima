@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->increments('id');
             $table->string('name')-> unique() -> nullable();
             $table->string('description_group',2000);
             $table->string('hierarchy')-> unique() -> nullable();

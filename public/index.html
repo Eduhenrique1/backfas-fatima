@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Empresa</title>
+</head>
+<body>
+    <h2>Cadastrar Nova Empresa</h2>
+    <form id="form-empresa">
+        <label for="fantasy">Fantasia:</label><br>
+        <input type="text" id="fantasy" name="fantasy"><br>
+
+        <label for="social">Social:</label><br>
+        <input type="text" id="social" name="social"><br>
+
+        <label for="cnpj">CNPJ:</label><br>
+        <input type="text" id="cnpj" name="cnpj"><br>
+
+        <label for="type">Tipo:</label><br>
+        <input type="text" id="type" name="type"><br>
+
+        <label for="responsible">Responsável:</label><br>
+        <input type="text" id="responsible" name="responsible"><br>
+
+        <label for="opening">Data de Abertura:</label><br>
+        <input type="date" id="opening" name="opening"><br>
+
+        <label for="nationality">Nacionalidade:</label><br>
+        <input type="text" id="nationality" name="nationality"><br>
+
+        <label for="description">Descrição:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+
+        <label for="address">Endereço:</label><br>
+        <input type="text" id="address" name="address"><br>
+
+        <label for="phone">Telefone:</label><br>
+        <input type="text" id="phone" name="phone"><br>
+
+        <label for="website">Website:</label><br>
+        <input type="text" id="website" name="website"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="mensagem"></div>
+
+    <script>
+        document.getElementById('form-empresa').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o comportamento padrão do formulário (recarregar a página)
+
+            var formData = new FormData(this);
+
+            // Faça uma requisição para o backend Laravel
+            fetch('http://localhost:8000/api/companies/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Erro ao enviar dados');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                // Exibe a mensagem de sucesso
+                document.getElementById('mensagem').innerText = data.message;
+            })
+            .catch(function(error) {
+                // Exibe a mensagem de erro
+                document.getElementById('mensagem').innerText = error.message;
+            });
+        });
+        
+        function getCompanies() {
+            fetch('http://localhost:8000/api/companies/')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayCompanies(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function displayCompanies(companies) {
+            const companiesContainer = document.getElementById('companies');
+            companiesContainer.innerHTML = ''; // Limpa o conteúdo anterior
+
+            companies.forEach(company => {
+                const companyElement = document.createElement('div');
+                companyElement.textContent = `ID: ${company.id}, fantasy: ${company.fantasy}`; // Altere de acordo com a estrutura dos dados
+                companiesContainer.appendChild(companyElement);
+            });
+        }
+
+        // Chama a função para obter empresas assim que a página é carregada
+        window.onload = getCompanies;
+    </script>
+</body>
+</html>
