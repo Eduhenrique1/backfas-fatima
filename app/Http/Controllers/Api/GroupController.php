@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class GroupController extends Controller
 {
@@ -13,7 +15,10 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return Group::all();
+       // return Group::all();
+
+       $goups = Group::all();
+         return response()->json($goups);
     }
 
     /**
@@ -21,15 +26,44 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-       Group::create($request->all());
+      // Group::create($request->all());
+      // cria um novo grupo
+        $group = new Group;
+        $group->name = $request->name;
+        $group->description = $request->description;
+        $group->save();
+
+        $response = Http::post('http://localhost:8000/api/groups', [
+            'name' => 'Group name',
+            'description'=>'Group description' 
+        ]);
+         // Verifique se a requisição HTTP foi bem-sucedida
+    if ($response->successful()) {
+        return response()->json(['message' => 'Dados enviados com sucesso para a API'], 200);
+    } else {
+        return response()->json(['message' => 'Erro ao enviar dados para a API'], $response->status());
+    }
+    /**
+     * Display the specified resource.
+     */
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($search)
     {
-        return Group::findOrFail($id);
+        $group = Group::where('name',$search)
+                        ->first();
+
+                         // Verifique se a empresa foi encontrada
+      if (!$group) {
+        return response()->json(['message' => 'Empresa não encontrada'], 404);
+    }
+
+    // Retorna os dados da empresa como uma resposta JSON
+    return response()->json($group);
+    
     }
 
     /**
@@ -37,8 +71,15 @@ class GroupController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       $Group= Group::findOrFail($id);
-       $Group->update($request->all());
+       $ValidatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $Group = Group::findOrFail($id);
+        $Group->update($ValidatedData);
+        return response()->json(['message' => 'Empresa atualizada com sucesso']);
+
     }
 
     /**
