@@ -1,0 +1,184 @@
+@use 'variables' as v
+@use 'colors' as cor
+
+// ----------------------- Tamanhos de telas ------------------
+
+@mixin format_widescreen
+    max-width: 1920px
+    margin: 0 auto
+    
+// ------------------------listas e navbars----------------------
+
+@mixin reset-list 
+    list-style: none
+    text-decoration: none
+
+@mixin navbar-list
+    @include reset-list
+    display: flex
+    justify-content: space-around
+
+
+//  --------------------flexbox no geral-------------------------
+@mixin justify-center
+    display: flex
+    justify-content: center
+    align-items: center
+
+@mixin justify-around
+    display: flex
+    justify-content: space-around
+    align-items: center
+
+@mixin justify-between
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+// ----------------- posições ------------------------------
+
+@mixin absoluto_baixo($bottom)
+    position: absolute
+    bottom: $bottom
+
+
+
+//-------------------------MARGENS---------------------------------
+
+
+@mixin mg-normal($mg-normal)
+    margin: $mg-normal
+
+@mixin mg-centro
+    margin: 0 auto
+
+@mixin mg-bot($bot)
+    margin-bottom: $bot
+
+@mixin mg-top($top)
+    margin-top: $top
+    
+@mixin mg-right($right)
+    margin-right: $right
+
+// -------------- paddings ---------------------------
+
+@mixin pd-20($padding-20: 20px)
+    padding: $padding-20
+
+
+@mixin pd-16($padding-16: 16px)
+    padding: $padding-16 
+
+
+@mixin pdl($padding-left)
+    padding-left: $padding-left
+
+@mixin pdt($padding-top)
+    padding-top: $padding-top
+    
+//-------------------------BORDAS---------------------------------
+
+@mixin borda-redonda($border-radius,  $cor)
+        border: 1px solid
+        border-color: $cor
+        border-radius: $border-radius
+
+@mixin borda-top-redonda($radius)
+        border-top-left-radius: $radius
+        border-top-right-radius: $radius
+
+    
+
+// @mixin borda-opacidade($borda: content, $cor: #fff)
+//     border: 1px solid
+//     border-color: $cor
+
+@mixin text-center()
+        width: 193px
+        text-align: center
+        margin: 0 auto 90px
+        padding-top: 50px
+
+
+@mixin linha-h2($left:40px, $bottom:-5px)
+
+    font-size: 28px
+    font-weight: 700
+    position: relative
+        
+
+    &::after
+        content: ''
+        width: 100px
+        height: 1px
+        display: block
+        position: absolute
+        background-color: cor.$botao
+        left: $left
+        bottom: $bottom
+
+
+
+
+@mixin btn($right, $top) 
+  position: absolute
+  width: 60px
+  height: 60px
+  top: $top
+  left: $right
+  transition-duration: 0.5s
+
+
+@mixin icon($height, $width) 
+  transition-duration: 0.5s
+  position: absolute
+  height: $height
+  width: $width
+  top: 30px
+  background-color: black
+
+
+@mixin icon-before($height, $width, $top) 
+  transition-duration: 0.5s
+  position: absolute
+  width: $width
+  height: $height
+  background-color: black
+  content: ""
+  top: $top
+
+
+@mixin icon-after($height, $width, $top) 
+  transition-duration: 0.5s
+  position: absolute
+  width: $width
+  height: $height
+  background-color: black
+  content: ""
+  top: $top
+
+
+// -------------- FONTES ------------------------
+
+
+@mixin fw-normal()
+    font-weight: 500
+
+@mixin fw-medio()
+    font-weight: 600
+    
+
+
+// input
+
+
+@mixin input-cad-empresa
+    width: 100%
+    height: 30px
+    @include pdl(10px)
+    @include borda-redonda(5px, #242424)
+    background-color: cor.$fundo
+    outline: none
+    
+    

@@ -10,9 +10,7 @@ class Group extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'description_group',
-        'status',
-        'hierarchy'
+        'description'
     ];
   
 }

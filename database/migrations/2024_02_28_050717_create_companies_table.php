@@ -13,24 +13,29 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) { 
             $table->increments('id');
-            $table->string('fantasy',100)-> unique() -> nullable();
-            $table->string('social',100)-> unique() -> nullable();
-            $table->string('cnpj',14)-> unique() -> nullable();
-            $table->string('type')-> unique() -> nullable();
-            $table->string('nationality', 20)-> unique() -> nullable();
-            $table->string('responsible',100)-> unique() -> nullable();
-            $table->date('opening')->nullable();
+            $table->text('fantasy');
+            $table->text('social');
+            $table->text('cnpj');
+            $table->text('type');
+            $table->text('nationality');
+            $table->text('responsible');
+            $table->text('opening');
             
 
              /*--------- STATUS ---------------*/
-            $table->string('description',2000)->nullable();
+            $table->text('description');
 
             /*---------ENDEREÇO LOCAL E WEB---------------*/
-            $table->string('address')-> unique() -> nullable();
-            $table->integer('phone')-> unique() -> nullable();
-            $table->string('website')-> unique() -> nullable();
+            $table->text('address');
+            $table->text('phone');
+            $table->text('website');
 
-            /*------------FOREIN KEYS-------------------- */
+            /*------------ TRABALHO DAS TURMAS -------------------- */
+            $table->text('class');
+            $table->text('faculty');
+            $table->text('semester');
+            $table->text('year');
+            $table->integer('group_id')->unsigned();
           
 
              /*------------FOREIN KEYS-------------------- */

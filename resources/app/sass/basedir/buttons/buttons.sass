@@ -1,0 +1,63 @@
+@use '../../globals/mixins' as m
+@use '../../globals/variables' as v
+@use '../../globals/_colors' as cor
+
+
+// .btns
+//     width: 17%
+//     @include m.justify-around
+//     @include m.absoluto_baixo(50px)
+//     right: 100px
+
+//     .cancel
+//         width: 100%
+//         height: 33px
+//         @include m.mg-right(10px)
+//         background-color: cor.$botao_red
+//         color: cor.$text
+//         @include m.borda-redonda(5px, transparent)
+//         @include m.fw-medio
+//         transition: .2s
+
+//         &:hover
+//             background-color: #97352F
+
+     
+
+//     .sucess
+//         width: 100%
+//         height: 33px
+//         background-color: cor.$botao_green
+//         color: cor.$text
+//         @include m.borda-redonda(5px, transparent)
+//         @include m.fw-medio
+//         transition: .2s
+        
+//         &:hover
+//             background-color: #1F472D
+
+.cancel
+        width: 100%
+        height: 30px
+        background-color: cor.$botao_red
+        color: cor.$text
+        @include m.borda-redonda(5px, transparent)
+        @include m.fw-medio
+        transition: .2s
+
+        &:hover
+            background-color: #97352F
+
+     
+
+.sucess
+    width: 100%
+    height: 30px
+    background-color: cor.$botao_green
+    color: cor.$text
+    @include m.borda-redonda(5px, transparent)
+    @include m.fw-medio
+    transition: .2s
+    
+    &:hover
+        background-color: #1F472D

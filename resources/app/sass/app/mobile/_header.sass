@@ -1,0 +1,66 @@
+@use '../../globals/_variables' as v
+@use '../../globals/_mixins' as m
+@use '../../globals/_colors' as cor
+@use '../../globals/funcoes' as f
+
+
+
+@media screen and ( max-width: 1024px  )
+    .home
+        width: 100%
+
+        .home-text
+            width: 100%
+
+            h1
+                font-size: f.calc-responsive(22, 480, 30, 1024) !important
+    
+
+@media screen and ( max-width: 768px )
+    
+    .home
+        width: 100%
+        
+
+        &::after
+            width: 259px !important
+            height: 225px !important
+        
+        &::before
+            width: 259px !important
+            height: 225px !important
+            background-position: -112px 0 !important
+        
+        &-img
+            width: 110px
+            margin: 90px auto 0 !important
+            
+
+
+        .home-text
+            width: 100% !important
+            height: auto
+            text-align: center
+
+            h1
+                font-size: 25px !important
+
+
+
+@media screen and (max-width: 480px )
+    header
+        width: 100%
+        margin-bottom: 77px !important
+
+        .home
+            .home-img
+                margin: 120px auto 0 !important
+
+
+@media screen and (max-width: 370px ) 
+    header
+        width: 23em !important
+
+        .home
+            &::after
+                left: 112px 

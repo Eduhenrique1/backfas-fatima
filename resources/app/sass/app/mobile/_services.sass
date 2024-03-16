@@ -1,0 +1,45 @@
+@use '../../globals/_variables' as v
+@use '../../globals/_mixins' as m
+@use '../../globals/_colors' as cor
+@use '../../globals/funcoes' as f
+
+
+@media screen and (min-width: 1024px)
+    .service-content
+        margin-bottom: 265px
+@media screen and ( max-width: 1024px)
+    .service-content
+        padding-top: 90px
+        margin-bottom: 100px
+        .service-box
+
+            .card-service 
+                margin-bottom: 40px
+
+@media screen and ( max-width: 768px)
+
+    .service-content
+        margin-bottom: 100px
+
+        &::after
+            top: 600px !important   
+
+@media screen and ( max-width: 480px )
+    .service-content
+        padding-top: 0
+        margin-bottom: 50px
+
+        &::after
+            top: calc( 500px + 38% ) !important
+
+        .card-service 
+            width: 225px !important
+            height: 285px !important
+           
+            .text 
+                    text-align: center !important
+    
+@media screen and ( max-width: 370px ) 
+   .service-content
+        width: 23em !important
+

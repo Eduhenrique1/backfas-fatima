@@ -20,7 +20,12 @@ class Company extends Model
         'description',
         'address',
         'phone',
-        'website'
+        'website',
+        'class',
+        'faculty',
+        'semester',
+        'year',
+        'group_id'
     ];
 
   

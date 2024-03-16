@@ -14,9 +14,8 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')-> unique() -> nullable();
-            $table->string('description_group',2000);
-            $table->string('hierarchy')-> unique() -> nullable();
+            $table->text('name')-> unique() -> nullable();
+            $table->text('description');
         
             $table->timestamps();
         /*------------FOREIN KEYS-------------------- */ 

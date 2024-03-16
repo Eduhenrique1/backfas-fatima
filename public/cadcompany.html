@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Empresa</title>
+    <style>
+        .empresa-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .empresa-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: calc(50% - 20px); /* Ajuste conforme necessário */
+        }
+        .editar-empresa-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cadastrar Nova Empresa</h2>
+    <form id="form-empresa">
+        <!-- Seus campos de formulário aqui -->
+        <label for="fantasy">Fantasia:</label><br>
+        <input type="text" id="fantasy" name="fantasy"><br>
+
+        <label for="social">Social:</label><br>
+        <input type="text" id="social" name="social"><br>
+
+        <label for="cnpj">CNPJ:</label><br>
+        <input type="text" id="cnpj" name="cnpj"><br>
+
+        <label for="type">Tipo:</label><br>
+        <input type="text" id="type" name="type"><br>
+
+        <label for="responsible">Responsável:</label><br>
+        <input type="text" id="responsible" name="responsible"><br>
+
+        <label for="opening">Data de Abertura:</label><br>
+        <input type="date" id="opening" name="opening"><br>
+
+        <label for="nationality">Nacionalidade:</label><br>
+        <input type="text" id="nationality" name="nationality"><br>
+
+        <label for="description">Descrição:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+
+        <label for="address">Endereço:</label><br>
+        <input type="text" id="address" name="address"><br>
+
+        <label for="phone">Telefone:</label><br>
+        <input type="text" id="phone" name="phone"><br>
+
+        <label for="website">Website:</label><br>
+        <input type="text" id="website" name="website"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <button id="listarEmpresas">Listar Empresas</button>
+
+    <div id="mensagem"></div>
+    <div class="empresa-container" id="dados-empresa"></div>
+    
+    <div class="container">
+        <h1>Lista de Empresas</h1>
+        <select id="select-empresas"></select>
+        <button id="btnCarregar">Carregar Empresas</button>
+        <ul id="empresas-lista"></ul>
+    </div>
+    <script>
+        document.getElementById('form-empresa').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o comportamento padrão do formulário (recarregar a página)
+
+            var formData = new FormData(this);
+            var empresaData = {};
+
+            // Formata os dados do formulário para um objeto JSON
+            formData.forEach(function(value, key){
+                empresaData[key] = value;
+            });
+
+            // Obtém o token de autenticação armazenado no local storage
+            var token = localStorage.getItem('token');
+
+            // Faça uma requisição para o backend Laravel
+            fetch('http://localhost:8000/api/companies', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token, // Adiciona o token de autenticação
+                    'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
+                },
+                body: JSON.stringify(empresaData) // Converte o objeto JSON em uma string JSON
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Erro ao enviar dados');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                // Exibe a mensagem de sucesso
+                document.getElementById('mensagem').innerText = data.message;
+            })
+            .catch(function(error) {
+                // Exibe a mensagem de erro
+                document.getElementById('mensagem').innerText = error.message;
+            });
+        });
+
+        document.getElementById('listarEmpresas').addEventListener('click', function() {
+            getDadosEmpresa();
+        });
+
+        function getDadosEmpresa() {
+            // Obtém o token de autenticação armazenado no local storage
+            var token = localStorage.getItem('token');
+
+            // Faça uma solicitação GET para obter os dados da empresa
+            fetch('http://localhost:8000/api/companies', {
+                headers: {
+                    'Authorization': 'Bearer ' + token // Adiciona o token de autenticação
+                }
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(companyData) {
+                // Exibe todos os dados da empresa na página
+                var dadosEmpresaHTML = '';
+                for (var i = 0; i < companyData.length; i++) {
+                    var empresa = companyData[i];
+                    dadosEmpresaHTML += '<div class="empresa-card">';
+                    for (var key in empresa) {
+                        if (empresa.hasOwnProperty(key) && key !== 'id' && key !== 'created_at' && key !== 'updated_at') {
+                            dadosEmpresaHTML += '<p><strong>' + key + ':</strong> ' + empresa[key] + '</p>';
+                        }
+                    }
+                    dadosEmpresaHTML += '<button class="editar-empresa" data-id="' + empresa.id + '">Editar</button>';
+                    dadosEmpresaHTML += '</div>';
+
+                    // Adiciona o formulário de edição para cada empresa
+                    dadosEmpresaHTML += '<form class="editar-empresa-form" id="form-editar-empresa-' + empresa.id + '">';
+                    dadosEmpresaHTML += '<input type="hidden" name="id" value="' + empresa.id + '">';
+                    dadosEmpresaHTML += '<label for="fantasy">Fantasia:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="fantasy" name="fantasy" value="' + empresa.fantasy + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="social">Social:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="social" name="social" value="' + empresa.social + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="cnpj">CNPJ:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="cnpj" name="cnpj" value="' + empresa.cnpj + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="type">Tipo:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="type" name="type" value="' + empresa.type + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="responsible">Responsável:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="responsible" name="responsible" value="' + empresa.responsible + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="opening">Data de Abertura:</label><br>';
+                    dadosEmpresaHTML += '<input type="date" id="opening" name="opening" value="' + empresa.opening + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="nationality">Nacionalidade:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="nationality" name="nationality" value="' + empresa.nationality + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="description">Descrição:</label><br>';
+                    dadosEmpresaHTML += '<textarea id="description" name="description">' + empresa.description + '</textarea><br>';
+
+                    dadosEmpresaHTML += '<label for="address">Endereço:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="address" name="address" value="' + empresa.address + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="phone">Telefone:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="phone" name="phone" value="' + empresa.phone + '"><br>';
+
+                    dadosEmpresaHTML += '<label for="website">Website:</label><br>';
+                    dadosEmpresaHTML += '<input type="text" id="website" name="website" value="' + empresa.website + '"><br>';
+
+                    dadosEmpresaHTML += '<button type="submit">Atualizar</button>';
+                    dadosEmpresaHTML += '</form>';
+                }
+                document.getElementById('dados-empresa').innerHTML = dadosEmpresaHTML;
+                // Adiciona o evento de clique nos botões de edição
+                var botoesEditar = document.getElementsByClassName('editar-empresa');
+                for (var i = 0; i < botoesEditar.length; i++) {
+                    botoesEditar[i].addEventListener('click', function() {
+                        var empresaId = this.getAttribute('data-id');
+                        // Exibe o formulário de edição para a empresa selecionada
+                        exibirFormularioEdicao(empresaId);
+                    });
+                }
+            })
+            .catch(function(error) {
+                console.error('Erro ao obter dados da empresa:', error);
+            });
+        }
+
+        function exibirFormularioEdicao(empresaId) {
+            // Oculta todos os outros formulários de edição
+            var formsEdicao = document.getElementsByClassName('editar-empresa-form');
+            for (var i = 0; i < formsEdicao.length; i++) {
+                formsEdicao[i].style.display = 'none';
+            }
+
+            // Exibe o formulário de edição para a empresa selecionada
+            var formEdicao = document.getElementById('form-editar-empresa-' + empresaId);
+            formEdicao.style.display = 'block';
+
+            // Obtém os detalhes da empresa selecionada e preenche os campos de edição
+            fetch('http://localhost:8000/api/companies/' + empresaId)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(empresaData) {
+                formEdicao.elements['fantasy'].value = empresaData.fantasy;
+                formEdicao.elements['social'].value = empresaData.social;
+                formEdicao.elements['cnpj'].value = empresaData.cnpj;
+                formEdicao.elements['type'].value = empresaData.type;
+                formEdicao.elements['responsible'].value = empresaData.responsible;
+                formEdicao.elements['opening'].value = empresaData.opening;
+                formEdicao.elements['nationality'].value = empresaData.nationality;
+                formEdicao.elements['description'].value = empresaData.description;
+                formEdicao.elements['address'].value = empresaData.address;
+                formEdicao.elements['phone'].value = empresaData.phone;
+                formEdicao.elements['website'].value = empresaData.website;
+            })
+            .catch(function(error) {
+                console.error('Erro ao obter dados da empresa:', error);
+            });
+        }
+
+        document.getElementById('btnCarregar').addEventListener('click', function() {
+            carregarEmpresas();
+        });
+
+        function carregarEmpresas() {
+            fetch('http://localhost:8000/api/companies')
+                .then(response => response.json())
+                .then(data => {
+                    const selectEmpresas = document.getElementById('select-empresas');
+                    selectEmpresas.innerHTML = '';
+
+                    const empresasLista = document.getElementById('empresas-lista');
+                    empresasLista.innerHTML = '';
+
+                    data.forEach(empresa => {
+                        const option = document.createElement('option');
+                        option.value = empresa.id; // Use o ID da empresa como valor
+                        option.textContent = empresa.fantasy;
+                        selectEmpresas.appendChild(option);
+
+                        const li = document.createElement('li');
+                        li.textContent = empresa.fantasy;
+                        empresasLista.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar empresas:', error));
+        }
+
+        getDadosEmpresa();
+    </script>
+</body>
+</html>

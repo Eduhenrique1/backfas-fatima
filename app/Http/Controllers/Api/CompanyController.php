@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Auth;
+
 
 class CompanyController extends Controller
 {
@@ -16,9 +16,11 @@ class CompanyController extends Controller
     public function index()
     {
         // Obtém todas as empresas
-        $companies = Company::all();
+        // $companies = DB::table('companies')->join('groups', 'companies.group_id', '=', 'groups.id')->get();
 
         // Retorna os dados das empresas como uma resposta JSON
+       // return response()->json($companies);
+       $companies = Company::all();
         return response()->json($companies);
     }
 
@@ -27,56 +29,73 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+       // return response()->json([$request->all()]);
       //  Company::create($request->all());
 
     // Crie a empresa
+    try {
     $company = new Company;
-    $company->fantasy = $request->fantasy;
-    $company->social = $request->social;
-    $company->cnpj = $request->cnpj;
-    $company->type = $request->type;
-    $company->responsible = $request->responsible;
-    $company->opening = $request->opening;
-    $company->nationality = $request->nationality;
-    $company->description = $request->description;
-    $company->address = $request->address;
-    $company->phone = $request->phone;
-    $company->website = $request->website;
+    $company->fantasy = $request->get("fantasy");
+    $company->social = $request->get("social");
+    $company->cnpj = $request->get("cnpj");
+    $company->type = $request->get("type");
+    $company->responsible = $request->get("responsible");
+    $company->opening = $request->get("opening");
+    $company->nationality = $request->get("nationality");
+    $company->description = $request->get("description");
+    $company->address = $request->get("address");
+    $company->phone = $request->get("phone");
+    $company->website = $request->get("website");
+    $company->class = $request->get("class");
+    $company->faculty = $request->get("faculty");
+    $company->semester = $request->get("semester");
+    $company->year = $request->get("year");
+    $company->group_id = $request->get("group_id");
     $company->save();
 
     // Envie os dados para a API
       // Envie os dados para a API
       $response = Http::post('http://localhost:8000/api/companies', [
-        'fantasy' => 'Company fantasy',
-        'social'=>'Company social' ,
-        'cnpj'=>'Company cnpj',
-        'type'=>'Company type',
-        'responsible'=>'Company responsible',
-        'opening'=>'Company date opening',
-        'nationality' => 'Company nationality',
-        'description'=> 'Company description',
-        'address' => 'Company address',
-        'phone'=> 'Company phone',
-        'website' =>  'Company website',
+        'fantasy',
+        'social',
+        'cnpj',
+        'type',
+        'responsible',
+        'opening' => 'required|date',
+        'nationality',
+        'description',
+        'address',
+        'phone' => 'required|int',
+        'website',
+         'class',
+         'faculty',
+         'semester',
+         'year'
+
+        
     ]);  
-              
+        } catch(\Exception $exception){
+            return response()->json([$exception]);
+    }
+    
+    
+
     // Verifique se a requisição HTTP foi bem-sucedida
-    if ($response->successful()) {
+    /*if ($response->successful()) {
         return response()->json(['message' => 'Dados enviados com sucesso para a API'], 200);
     } else {
         return response()->json(['message' => 'Erro ao enviar dados para a API'], $response->status());
-    }
-    /**
-     * Display the specified resource.
-     */
+    }*/
     }
   public function  show($search)
   {
       // Encontre a empresa pelo fantasy, social, CNPJ ou ID
       $company = Company::where('fantasy', $search)
+                         ->orWhere('id', $search)
                          ->orWhere('social', $search)
                          ->orWhere('cnpj', $search)
-                         ->orWhere('id', $search)
+                         ->orWhere('class', $search)
+                        
                          ->first();
   
       // Verifique se a empresa foi encontrada
@@ -92,17 +111,21 @@ class CompanyController extends Controller
   public function update(Request $request, string $fantasy)
   {
       $validatedData = $request->validate([
-          'fantasy' => 'required|string',
-          'social' => 'required|string',
-          'cnpj' => 'required|string',
-          'type' => 'required|string',
-          'responsible' => 'required|string',
-          'opening' => 'required|date',
-          'nationality' => 'required|string',
-          'description' => 'required|string',
-          'address' => 'required|string',
+          'fantasy',
+          'social',
+          'cnpj',
+          'type',
+          'responsible',
+          'opening',
+          'nationality',
+          'description',
+          'address',
           'phone' => 'required|int',
-          'website' => 'required|string',
+          'website',
+          'class',
+          'faculty',
+          'semester',
+          'year'
       ]);
   
       // Encontre a empresa que deseja atualizar pelo campo "fantasy"

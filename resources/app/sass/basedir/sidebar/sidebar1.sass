@@ -1,0 +1,123 @@
+@use '../../globals/mixins' as m
+@use '../../globals/variables' as v
+@use '../../globals/_colors' as cor
+
+    
+.sidebar
+    width:275px
+    background-color: cor.$container_1
+    height:100vh
+    box-shadow: 0px 0px 1px cor.$sombra-card
+    position: fixed
+    transition: .3s
+
+    &.close
+        width: 0
+        overflow: hidden
+
+
+    &-image
+        width:100%
+        height: 16%
+        @include m.justify-around
+        @include m.pd-16
+        
+        img
+            width: 50%
+            object-fit: contain
+        
+    &-container
+        height:100%
+        
+        .container-list-content
+            @include m.mg-normal(20px)
+
+            .list
+                list-style: none
+
+                &-item
+                    @include m.pd-20
+                    text-decoration: none
+
+                    i
+                        padding-right: 10px
+                        
+                    a
+                        text-decoration: none
+                        color: cor.$cor_link
+                        @include m.fw-normal
+
+                        &:hover
+                            color: cor.$cor_hover1
+
+                        &.close
+                            display: none
+                            
+
+                    // .arrow-container
+                    //         width: 50px
+                    //         height: 50px
+                    //         display: flex
+                    //         justify-content: center
+                    //         align-items: center
+                    //         cursor: pointer
+
+                    // .arrow
+                    //     position: absolute
+                    //     display: inline-block
+                    //     width: 50px
+                    //     height: 50px
+
+                    //     &:before,
+                    //     &:after
+                    //         content: ''
+                    //         position: absolute
+                    //         width: 0
+                    //         height: 0
+                    //         border-style: solid
+
+                    //     &:before
+                    //         border-width: 5px 5px 0 5px
+                    //         border-color: black transparent transparent transparent
+                    //         top: 0
+                    //         left: 50%
+                    //         transform: translateX(-50%)
+
+                    //     &:after
+                    //         border-width: 0 5px 5px 5px
+                    //         border-color: transparent transparent black transparent
+                    //         bottom: 0
+                    //         left: 50%
+                    //         transform: translateX(-50%)
+
+                    //     &.down::before
+                    //         border-width: 0 5px 5px 5px
+                    //         border-color: transparent transparent black transparent
+                    //         top: 0
+                    //         left: 50%
+                    //         transform: translateX(-50%) rotate(180deg)
+
+                    //     &.down::after
+                    //         border-width: 5px 5px 0 5px
+                    //         border-color: black transparent transparent transparent
+                    //         bottom: 0
+                    //         left: 50%
+                    //         transform: translateX(-50%) rotate(180deg)
+                                                        
+
+            .footer-content
+                @include m.absoluto_baixo(30px)
+                padding: 15px
+
+                i
+                    padding-right: 10px
+
+
+                a
+                    @include m.reset-list
+                    color: cor.$cor_link
+
+                    &:hover
+                        color: cor.$cor_hover1
+
+

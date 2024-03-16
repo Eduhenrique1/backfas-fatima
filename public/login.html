@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #login-form {
+        background-color: #fff;
+        padding: 100px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    #login-form input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    #login-form button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    #reset-password-button {
+        margin-left: 2%;
+    }
+    #login-form button:hover, #reset-password-button:hover {
+        background-color: #0056b3;
+    }
+    .success-message {
+        color: green;
+        margin-top: 10px;
+    }
+    .error-message {
+        color: red;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<div id="login-form">
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="checkbox" onclick="togglePasswordVisibility()"> Mostrar senha
+        <button type="submit">Login</button>
+        <button id="reset-password-button" type="button" onclick="window.location.href='./resetsenha.html'">Redefinir Senha</button>
+        <p id="login-message" class="success-message" style="display: none;">Login bem-sucedido!</p>
+        <p id="error-message" class="error-message" style="display: none;"></p>
+    </form>
+</div>
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        
+        // Replace this URL with your API endpoint
+        var apiUrl = 'http://localhost:8000/api/login/';
+        
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, password: password }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle successful login response
+            console.log(data);
+            setCookie('access_token', data.access_token, 1); // Set cookie with token
+            window.location.href = "./dashboard.html"; // Redirect to dashboard or wherever you need to go after successful login
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+            // Handle error, show error message to the user, etc.
+        });
+    });
+
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Strict; Secure";
+    }
+
+    // Function to toggle password visibility
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById('password');
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+
+</body>
+</html>

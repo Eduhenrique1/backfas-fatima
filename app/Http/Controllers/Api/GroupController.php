@@ -54,11 +54,12 @@ class GroupController extends Controller
     public function show($search)
     {
         $group = Group::where('name',$search)
+                        ->orWhere('id',$search)
                         ->first();
 
                          // Verifique se a empresa foi encontrada
       if (!$group) {
-        return response()->json(['message' => 'Empresa não encontrada'], 404);
+        return response()->json(['message' => 'Grupo não encontrada'], 404);
     }
 
     // Retorna os dados da empresa como uma resposta JSON

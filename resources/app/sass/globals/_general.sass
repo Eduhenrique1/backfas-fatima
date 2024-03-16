@@ -1,0 +1,15 @@
+@use 'colors' as cor
+@use 'mixins' as m
+@use 'variables' as v
+    
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+    body
+        background: cor.$fundo
+        @include m.format_widescreen
+        color: cor.$cor_titulo
+   
+

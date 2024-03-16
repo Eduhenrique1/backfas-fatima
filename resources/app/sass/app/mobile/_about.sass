@@ -1,0 +1,49 @@
+@use '../../globals/_variables' as v
+@use '../../globals/_mixins' as m
+@use '../../globals/_colors' as cor
+@use '../../globals/funcoes' as f
+
+
+@media screen and ( max-width: 1024px )
+
+@media screen and ( max-width: 768px )
+    .content-about
+        margin-bottom: calc(200px + 25%)
+        
+        .about-tittle
+            margin: 0 auto 100px !important
+
+
+    .about-img
+        width: 250px !important
+        height: 250px !important
+        margin-bottom: 100px
+
+        &::before
+            width: 350px !important
+            height: 350px !important
+
+        img
+            height: 250px !important
+            width: 250px !important
+
+
+    .box-about
+        flex-direction: column-reverse
+
+        .about-text
+            width: 80% !important
+            @include m.mg-bot(100px)
+            
+@media screen and ( max-width: 480px )
+    .content-about
+        margin-bottom: 0
+        .about-img
+            display: none
+
+@media screen and ( max-width: 370px )
+
+    .content-about
+        width: 23em !important
+        height: 100% !important
+    

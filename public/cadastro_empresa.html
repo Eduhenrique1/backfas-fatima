@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../resources/app/css/styles.css">
+    <script src="https://kit.fontawesome.com/6cd1ec567f.js" crossorigin="anonymous"></script>
+   
+    <title>Cadastre sua Empresa</title>
+</head>
+<body>
+    
+    <div class="sidebar">
+        <div class="sidebar-image">
+            <img src="../resources/app/assets/images/Logotipo1.png" alt="logotipo">
+        </div>
+
+        <div class="sidebar-container">
+            <div class="container-list-content">
+                <ul class="list">
+                    <li class="list-item">
+                        <i class="fa-solid fa-house"></i>
+                        <a href="dashboard.html"><span>Dashboard</span></a>
+                    </li>
+                    <li class="list-item" id="group">
+                        <i class="fa-solid fa-user"></i>
+                        <a  href="cadastro_grupos.html"><span>Grupos</span>  <span class="arrow"></span> </a>
+                       
+                          
+                    </li>
+                    <li class="list-item">
+                        <i class="fa-regular fa-building"></i>
+                        <a href="cadastro_empresa.html"><span>Empresas</span></a>
+
+                       
+                        <!-- <div class="dropdown-content">
+                            <span> <i class="fa-regular fa-building"></i>Empresas</span>
+                            <ul class="list-subitens">
+                                <li>
+                                    <a href="#">item 1</a>
+                                </li>
+                                <li> <a href="#">item 2</a>
+                                </li>
+                            </ul> -->
+                        <!-- </div> -->
+                       
+                    </li>
+                    <div class="footer-content">
+                        <li class="content-config">
+                            <i class="fa-solid fa-gear"></i>
+                            <a href="#">Configurações</a>
+                        </li>
+                        <li class="content-logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <a href="#">Sair</a>
+                        </li>
+                    </div>
+                </ul>
+               
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="icon icon-4">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="search-input">
+            <input class="" type="text" name="search-bar" id="search" placeholder="Procure por... (empresas, sistemas, configurações)">
+            <button class="btn-search"> <i class="fa fa-search"></i></button>
+        </div>
+
+        <div class="user">
+            <img src="../resources/app/assets/images/Logotipo1.png" alt="imagem-usuario">
+            <p class="user-name">Fátima</p>
+            <p class="user-office">Administrador</p>            
+
+        </div>
+
+
+    </nav>
+    <div class="block-content enterprice">
+        <div class="content-initial">
+            <div class="data-temp">
+                <h2>Empresas</h2>
+                <p class="data-time"></p>
+            </div>
+            <div class="search-input">
+                <input class="" type="text" name="search-bar" id="search" placeholder="Procure por... (empresas, sistemas, configurações)">
+                <button class="btn-search"> <i class="fa fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="forms_cadastro">
+            <form id="form-empresa">
+                <div class="h1">Cadastre as Empresas</div>
+
+                <div class=" line line1">
+                    <div class="name">
+                        <label for="#">Nome Social</label>
+                        <input type="text" name="social" id="social">
+                    </div>
+                    <div class="date-execut">
+                        <!-- <label for="#">Ano em Atividade</label> -->
+                        <label for="#">Nome Fantasia</label>
+                        <input type="text" name="fantasy" id="fantasy">
+                    </div>
+                </div>
+                <div class="line line2">
+                    <div class="cnpj">
+                        <label for="#">CNPJ</label>
+                        <input type="text" name="cnpj" id="cnpj">
+                    </div>
+                    <div class="groups">
+         
+                        <label for="#">Tipo de Empresa</label>
+                        <input type="text" name="type" id="type">
+                    </div>
+                </div>
+                <div class="line line3">
+                    <div class="nomefantasia">
+                        <label for="#">Grupos participantes</label>
+                        <select name="groups" id="groups">
+                            
+                        </select>
+                    </div>
+                    <div class="director">
+                        <label for="#">Diretor da Empresa</label>
+                        <input type="text" name="responsible" id="responsible">
+                    </div>
+                </div>
+                <div class="line line4">
+                    <div class="tipoEmpresa">
+                        <label for="#">Nacionalidade</label>
+                        <input type="text" name="nationality" id="nationality">
+                    </div>
+                    <div class="Nacionalidade">
+                        <label for="#">Telefone</label>
+                        <input type="tel" name="phone" id="phone" type="tel" class="form-control" id="telefone" name="telefone" maxlength="15" pattern="\(\d{2}\)\s*\d{5}-\d{4}">
+
+                    </div>
+                </div>
+
+                <div class="line line5">
+                    <div class="endereco">
+                        <label for="#">Endereço</label>
+                        <input type="text" name="address" id="">
+                    </div>
+                    <div class="telefone">
+                        <label for="#">Web Site</label>
+                        <input type="text" name="website" id="website">
+                    </div>
+                </div>
+
+                <div class="line line6">
+                    <div class="website">
+                        <label for="#">Ano em Atividade</label>
+                        <input type="date" name="opening" id="opening">
+                    </div>
+                    <div class="descricao">
+                        <label for="#">Descrição</label>
+                        <input type="text" name="description" id="description">
+                    </div>
+                </div>
+
+                <div class="h1">Trabalhos de Alunos</div>
+
+                <div class="line line7">
+                    <div class="turma">
+                        <label for="#">Turma</label>
+                        <input type="text" name="class" id="class">
+                    </div>
+                    <div class="Faculdade">
+                        <label for="#">Faculdade</label>
+                        <input type="text" name="faculty" id="faculty">
+                    </div>
+                </div>
+                <div class="line line8">
+                    <div class="semestre">
+                        <label for="#">Semestre</label>
+                        <input type="text" name="semester" id="semester">
+                    </div>
+                    <div class="ano">
+                        <label for="#">Ano</label>
+                        <input type="number" name="year" id="year">
+                    </div>
+                    <div class="upload">
+                        <label for="#"> Arquivos de Trabalho</label>
+                        <input type="file" class="custom-file-input" />
+                    </div>
+                </div>
+
+
+
+                <div class="btns">
+                    <button class="cancel" onclick="window.location.href='dashboard.html';">cancelar</button>
+                    <button class="sucess" type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        
+    </div>
+    <script>
+        document.getElementById('form-empresa').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o comportamento padrão do formulário (recarregar a página)
+
+    var formData = new FormData(this);
+    var empresaData = {};
+
+    // Formata os dados do formulário para um objeto JSON
+    formData.forEach(function(value, key){
+        empresaData[key] = value;
+    });
+
+    // Obtém o token de autenticação armazenado no local storage
+    var token = localStorage.getItem('token');
+
+    // Faça uma requisição para o backend Laravel
+    fetch('http://localhost:8000/api/companies', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token, // Adiciona o token de autenticação
+            'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
+        },
+        body: JSON.stringify(empresaData) // Converte o objeto JSON em uma string JSON
+    })
+    .then(function(data) {
+    // Exibe a mensagem de sucesso se o elemento 'mensagem' existir
+    var mensagemElement = document.getElementById('mensagem');
+    if (mensagemElement) {
+        mensagemElement.innerHTML = data.message;
+    }
+    })
+    .catch(function(error) {
+        // Exibe a mensagem de erro se o elemento 'mensagem' existir
+        var mensagemElement = document.getElementById('mensagem');
+        if (mensagemElement) {
+            mensagemElement.innerHTML = error.message;
+        }
+    });
+});
+
+
+    </script>
+    <script defer src="../resources/app/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</body>
+</html>

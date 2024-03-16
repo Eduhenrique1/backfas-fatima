@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../resources/app/css/styles.css">
+    <script src="https://kit.fontawesome.com/6cd1ec567f.js" crossorigin="anonymous"></script>
+    <title>Cadastre os Grupos</title>
+</head>
+<body>  
+    
+    <div class="sidebar">
+        <div class="sidebar-image">
+            <img src="/resources/app/assets/images/Logotipo1.png" alt="logotipo">
+        </div>
+
+        <div class="sidebar-container">
+            <div class="container-list-content">
+                <ul class="list">
+                    <li class="list-item">
+                        <i class="fa-solid fa-house"></i>
+                        <a href="dashboard.html"><span>Dashboard</span></a>
+                    </li>
+                    <li class="list-item" id="group">
+                        <i class="fa-solid fa-user"></i>
+                        <a  href="cadastro_grupos.html"><span>Grupos</span>  <span class="arrow"></span> </a>
+                       
+                          
+                    </li>
+                    <li class="list-item">
+                        <i class="fa-regular fa-building"></i>
+                        <a href="cadastro_empresa.html"><span>Empresas</span></a>
+
+                       
+                        <!-- <div class="dropdown-content">
+                            <span> <i class="fa-regular fa-building"></i>Empresas</span>
+                            <ul class="list-subitens">
+                                <li>
+                                    <a href="#">item 1</a>
+                                </li>
+                                <li> <a href="#">item 2</a>
+                                </li>
+                            </ul> -->
+                        <!-- </div> -->
+                       
+                    </li>
+                    <div class="footer-content">
+                        <li class="content-config">
+                            <i class="fa-solid fa-gear"></i>
+                            <a href="#">Configurações</a>
+                        </li>
+                        <li class="content-logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <a href="#">Sair</a>
+                        </li>
+                    </div>
+                </ul>
+               
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="icon icon-4">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="search-input">
+            <input class="" type="text" name="search-bar" id="search" placeholder="Procure por... (empresas, sistemas, configurações)">
+            <button class="btn-search"> <i class="fa fa-search"></i></button>
+        </div>
+
+        <div class="user">
+            <img src="/app/assets/images/Logotipo1.png" alt="imagem-usuario">
+            <p class="user-name">Fátima</p>
+            <p class="user-office">Administrador</p>            
+
+        </div>
+
+
+    </nav>
+    <div class="block-content">
+        <div class="content-initial">
+            <div class="data-temp">
+                <h2>Grupos</h2>
+                <p class="data-time"></p>
+            </div>
+            <div class="search-input">
+                <input class="" type="text" name="search-bar" id="search" placeholder="Procure por... (empresas, sistemas, configurações)">
+                <button class="btn-search"> <i class="fa fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="forms_cadastro">
+            <form action="#">
+                <div class="h1">Cadastre os Grupos</div>
+
+                <div class="line line1">
+                    <div class="name">
+                        <label for="#">Nome Completo</label>
+                        <input type="text" name="name" id="">
+                    </div>
+                    <div class="date-execut">
+                        <label for="#">Ano em Atividade</label>
+                        <input type="text" name="DateInExecut" id="">
+                    </div>
+                </div>
+                <div class="line line2">
+                    <div class="cnpj">
+                        <label for="#">CNPJ</label>
+                        <input type="text" name="cnpj" id="">
+                    </div>
+                    <div class="groups">
+                        <label for="#">Grupos participantes</label>
+                        <input type="text" name="groups" id="">
+                    </div>
+                </div>
+                <div class="btns">
+                    <button class="cancel">cancelar</button>
+                    <button class="sucess">Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        
+    </div>
+    <script defer src="../resources/app/js/app.js"></script>
+</body>
+</html>

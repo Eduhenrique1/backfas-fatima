@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil do Usuário</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #perfil-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    #perfil-form input[type="text"],
+    #perfil-form input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    #perfil-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    #perfil-form button:hover {
+        background-color: #0056b3;
+    }
+    #avatar-preview {
+        margin-top: 20px;
+        display: none;
+    }
+    #avatar-preview img {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+<div id="perfil-form">
+    <h2>Perfil do Usuário</h2>
+    <form id="form-perfil" enctype="multipart/form-data">
+        <input type="text" id="name" name="name" placeholder="Nome" required><br>
+        <input type="email" id="email" name="email" placeholder="Email" required><br>
+        <input type="file" id="avatar" name="avatar" accept="image/*"><br>
+        <button type="submit">Salvar</button>
+    </form>
+    <div id="avatar-preview">
+        <h3>Preview da Foto de Perfil</h3>
+        <img id="avatar-image" src="#" alt="Avatar Preview">
+    </div>
+</div>
+
+<script>
+    const formPerfil = document.getElementById('form-perfil');
+    const avatarInput = document.getElementById('avatar');
+    const avatarPreview = document.getElementById('avatar-preview');
+    const avatarImage = document.getElementById('avatar-image');
+
+    avatarInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            avatarPreview.style.display = 'block';
+        }
+    });
+
+    formPerfil.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        // Aqui você faria uma requisição AJAX para enviar os dados do formulário para o backend
+        // Exemplo usando fetch:
+        fetch('url_do_backend', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao salvar perfil');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Aqui você poderia exibir uma mensagem de sucesso ou fazer outras ações após salvar o perfil
+            console.log('Perfil salvo com sucesso:', data);
+        })
+        .catch(error => {
+            // Tratamento de erro
+            console.error('Erro ao salvar perfil:', error);
+        });
+    });
+</script>
+
+</body>
+</html>
